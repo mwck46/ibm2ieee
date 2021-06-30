@@ -1,3 +1,10 @@
+/*******************************************************************************
+Conversion between IBM and IEEE floating point 
+
+Reference:
+https://en.wikipedia.org/wiki/IBM_hexadecimal_floating-point
+https://www.crewes.org/Documents/ResearchReports/2017/CRR201725.pdf
+*******************************************************************************/
 #include <cmath>
 
 float ibm2ieee(unsigned int ibm)
@@ -48,14 +55,19 @@ int main()
 	testList[5] = reinterpret_cast<unsigned int&>(f);
 
 	// Test ibm to ieee
-	// Case 1: Wiki example, IEEE float value -118.625, IBM encoding is 0xC276A000
-	// see https://en.wikipedia.org/wiki/IBM_hexadecimal_floating-point
+	
+	// Case 1: Wiki example
+	// IEEE -118.625
+	// IBM 0xC276A000
 	testList[6] = static_cast<unsigned int>(0xC276A000); 
 
 	// Case 2: 
-	// IEEE float value 0.15625
-	// IBM encoding 0x40280000
+	// IEEE 0.15625
+	// IBM 0x40280000
 	testList[7] = static_cast<unsigned int>(0x40280000);
+
+
+
 	//testList[] =reinterpret_cast< (unsigned int)();
 
 
