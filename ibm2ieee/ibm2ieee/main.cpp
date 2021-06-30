@@ -32,52 +32,45 @@ float ibm2ieee(unsigned int ibm)
 
 unsigned int ieee2ibm(float ieee)
 {
+	char bias = 64;
+	unsigned int buffer = reinterpret_cast<unsigned int&>(ieee);
+
+	char sign = (buffer) >> 31;
+	buffer = buffer & 0x80000000;
+	
+	int intg = static_cast<int>(ieee) * sign;
 
 	return 0;
 }
 
 int main()
 {
-	unsigned int testList[10];
-	float f;
-
-	f = +1;
-	testList[0] = reinterpret_cast<unsigned int&>(f);
-	f = -1;
-	testList[1] = reinterpret_cast<unsigned int&>(f);
-	f = +0;
-	testList[2] = reinterpret_cast<unsigned int&>(f);
-	f = -0;
-	testList[3] = reinterpret_cast<unsigned int&>(f);
-	f = +0.15625f;
-	testList[4] = reinterpret_cast<unsigned int&>(f);
-	f = -0.15625f;
-	testList[5] = reinterpret_cast<unsigned int&>(f);
-
+	//
 	// Test ibm to ieee
-	
+	//
+	unsigned int ibm2ieeeTests[10];
 	// Case 1: Wiki example
 	// IEEE -118.625
 	// IBM 0xC276A000
-	testList[6] = static_cast<unsigned int>(0xC276A000); 
+	ibm2ieeeTests[0] = 0xC276A000; 
 
 	// Case 2: 
 	// IEEE 0.15625
 	// IBM 0x40280000
-	testList[7] = static_cast<unsigned int>(0x40280000);
+	ibm2ieeeTests[1] = 0x40280000;
 
-
-
-	//testList[] =reinterpret_cast< (unsigned int)();
-
-
-	unsigned int t = testList[7];
-
-
-	float f1 = reinterpret_cast<float&>(t);
-
+	unsigned int t = ibm2ieeeTests[0];
 	float f2 = ibm2ieee(t);
 
+	//
+	// Test ieee to ibm
+	//
+	float ieee2ibmTests[10];
+	ieee2ibmTests[0] = -118.625;
+	ieee2ibmTests[1] = 0.15625;
+
+	float f1 = reinterpret_cast<float&>(ieee2ibmTests[0]);
+	ieee2ibm(f1);
 
 	return 0;
 }
