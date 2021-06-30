@@ -1,2 +1,2 @@
 # ibm2ieee
- Convert between IEEE and IDM float
+ Convert between IEEE and IBM float
