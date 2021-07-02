@@ -105,8 +105,8 @@ unsigned int ieee2ibm(float ieee)
 
 int main()
 {
-	unsigned int ibmFloat[2];
-	float ieeeFloat[2];
+	unsigned int ibmFloat[6];
+	float ieeeFloat[6];
 	// Case 1: Wiki example
 	// IEEE -118.625, 0xC2ED4000, 11000010 11101101 01000000 00000000
 	// IBM            0xC276A000, 11000010 01110110 10100000 00000000
@@ -118,6 +118,30 @@ int main()
 	// IBM 0x40280000
 	ibmFloat[1] = 0x40280000;
 	ieeeFloat[1] = 0.15625;
+	
+	// Case 3: 
+	// IEEE inf
+	// IBM 0x7FFFFFFF
+	ibmFloat[2] = 0x7FFFFFFF;
+	ieeeFloat[2] = 7.23701E+75;
+	
+	// Case 4: 
+	// IEEE inf
+	// IBM 0x00100000
+	ibmFloat[3] = 0x00100000;
+	ieeeFloat[3] = 5.39761E-79;
+	
+	// Case 5: 
+	// IEEE 3.40282E+38
+	// IBM 0x60FFFFFF
+	ibmFloat[4] = 0x60FFFFFF;
+	ieeeFloat[4] = 3.4028200E+38;
+	
+	// Case 6: 
+	// IEEE -1.17549E-38
+	// IBM 0xA1400000
+	ibmFloat[5] = 0xA1400000;
+	ieeeFloat[5] = -1.17549E-38;
 
 	// Test ibm to ieee
 	for (int i = 0; i < sizeof(ibmFloat) / sizeof(ibmFloat[0]); i++)
@@ -135,7 +159,7 @@ int main()
 	// Test ieee to ibm
 	for (int i = 0; i < sizeof(ieeeFloat) / sizeof(ieeeFloat[0]); i++)
 	{
-		unsigned int ui1 = ieee2ibm(ieeeFloat[0]);
+		unsigned int ui1 = ieee2ibm(ieeeFloat[i]);
 		if(ui1 != ibmFloat[i])
 			std::cout << "Test case " << i << " failed for ieee2ibm()" << std::endl;
 	}
