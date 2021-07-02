@@ -332,8 +332,3 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
-
-###########################################################
-# Custom
-*.vcxproj*
-*.sln
