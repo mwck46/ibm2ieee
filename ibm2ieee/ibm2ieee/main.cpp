@@ -119,32 +119,8 @@ int main()
 	ibmFloat[1] = 0x40280000;
 	ieeeFloat[1] = 0.15625;
 	
-	// Case 3: 
-	// IEEE inf
-	// IBM 0x7FFFFFFF
-	ibmFloat[2] = 0x7FFFFFFF;
-	ieeeFloat[2] = 7.23701E+75;
-	
-	// Case 4: 
-	// IEEE inf
-	// IBM 0x00100000
-	ibmFloat[3] = 0x00100000;
-	ieeeFloat[3] = 5.39761E-79;
-	
-	// Case 5: 
-	// IEEE 3.40282E+38
-	// IBM 0x60FFFFFF
-	ibmFloat[4] = 0x60FFFFFF;
-	ieeeFloat[4] = 3.4028200E+38;
-	
-	// Case 6: 
-	// IEEE -1.17549E-38
-	// IBM 0xA1400000
-	ibmFloat[5] = 0xA1400000;
-	ieeeFloat[5] = -1.17549E-38;
-
 	// Test ibm to ieee
-	for (int i = 0; i < sizeof(ibmFloat) / sizeof(ibmFloat[0]); i++)
+	for (int i = 4; i < sizeof(ibmFloat) / sizeof(ibmFloat[0]); i++)
 	{
 		unsigned int t = ibmFloat[i];
 		float f1 = ibm2ieee_intuitive(t);
