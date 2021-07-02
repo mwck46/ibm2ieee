@@ -34,10 +34,10 @@ float ibm2ieee_intuitive(unsigned int ibm)
 float ibm2ieee(unsigned int ibm)
 {
 	// copy sign
-	unsigned int buffer = (ibm & 0x80000000);
+	unsigned int signBit = (ibm & 0x80000000);
 
 	// fraction
-	int frac = (ibm << 8);
+	int frac = (ibm & 0x00FFFFFF);
 	int shift = 0;
 	do
 	{
@@ -46,14 +46,11 @@ float ibm2ieee(unsigned int ibm)
 		// Meaning the first bit bust be 0, so a do-while is correct
 		frac = frac << 1;
 		shift++;
-	} while (frac & 0x80000000 != 1);
+	} while ((frac & 0x00800000) != 0x00800000);
 
 	// Handle implicit 1
-	frac = frac << 1;
+	frac = frac & 0x007FFFFF;
 	shift++;
-
-	frac = (frac >> 9) & 0x007FFFFF;
-	buffer = buffer | frac;
 
 	// exponent
 	char bias16 = 64;
@@ -66,8 +63,7 @@ float ibm2ieee(unsigned int ibm)
 	unsigned int expn = expn2;
 	expn = (expn & 0x000000FF) << 23;
 
-	buffer = buffer | expn;
-	
+	unsigned int buffer = signBit | expn | frac;
 	return reinterpret_cast<float&>(buffer);
 }
 
